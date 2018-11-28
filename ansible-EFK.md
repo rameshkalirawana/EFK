@@ -1,4 +1,4 @@
-# Ansible Documentation for Elasticsearch Cluster(master and data node), Kibna and Fluentbit 
+# Ansible Documentation for Elasticsearch Cluster(master and data node), Kibana and Fluentbit 
 
 Ansible roles for 6.x/ Elasticsearch, Kibana and Fluentbit.  Currently this works on Debian and RedHat based linux systems. Tested platforms are:
 
@@ -47,7 +47,7 @@ This needs be in below format where IP address will be mentioned in place of <IP
 
 ### Running the playbook
 
-To run the playbook user needs to use the below command once he is inside the TIG dir
+To run the playbook user needs to use the below command once he is inside the EFK dir
  ```
  ansible-playbook main.yaml -i inventory.yaml
  ```
@@ -92,16 +92,15 @@ Kibana variables:
 
 # Roles definition for Fluentbit
 
-An Ansible role to setup kibana.
+An Ansible role to setup fluentbit.
 
-Kibana variables:
+fluentbit variables:
 
-* ```fluentbit_inputs and fluentbit_outputs``` define input and output variable .Find below URL for Input and output pulgin vaibales
-* ``` https://fluentbit.io/documentation/current/output/ and https://fluentbit.io/documentation/current/input ``` .
+* ```fluentbit_inputs and fluentbit_outputs``` define input and output variable .Find below URL for Input and output pulgin vaibales ``` https://fluentbit.io/documentation/current/output/ and https://fluentbit.io/documentation/current/input ``` .
 
 -------------------------------------------------------------------------------
 
-All the variables for driving different configuration wrt telelgraf, influxdb and Grafana are stored in input.yaml which can be easily over-ridden by simply changing the variables to custom value.
+All the variables for driving different configuration and Elasticsearch, kibana and fluentbit are stored in input.yaml which can be easily over-ridden by simply changing the variables to custom value.
 
 ```
 Variables file: hawk/EFK/input.yaml
