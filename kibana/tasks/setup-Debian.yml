@@ -1,0 +1,12 @@
+
+--- 
+- name: Kibana DEB package download
+  get_url: 
+    dest: /tmp/
+    url: "https://artifacts.elastic.co/downloads/kibana/kibana-6.3.2-amd64.deb"
+
+- name: install kibana
+  apt: 
+    deb: /tmp/kibana-6.3.2-amd64.deb
+
+

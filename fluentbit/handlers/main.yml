@@ -1,0 +1,17 @@
+---
+
+- name: restart td-agent-bit
+  service:
+    name: td-agent-bit
+    state: restarted
+
+- name: restart rsyslog
+  systemd:
+    name: rsyslog
+    state: restarted
+  when: ansible_os_family == "Debian"
+
+- name: restart journald
+  systemd:
+    name: systemd-journald
+    state: restarted

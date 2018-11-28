@@ -1,0 +1,34 @@
+################# Elasticsearch cluster Input varibales ##################
+es_heap_size: "1g"
+es_instance_name: "master"
+es_config:
+      cluster.name: "hawk-cluster"
+      discovery.zen.ping.unicast.hosts: "easlticsearchcluster-masternode-endpoints"
+      bootstrap.memory_lock: false
+      network.host : '0.0.0.0'
+es_node_data: false
+es_node_master: true
+es_max_open_files: 65536
+es_max_map_count: 262144
+#ansible_user: ubuntu
+es_plugins:
+     - plugin: ingest-geoip
+
+#################### kibana input varibales #######################
+
+kibana_elasticsearch_url: "http://easlticsearchcluster-masternode-endpoints:9200"
+
+####################  fluentbit Input Variables ##################
+
+fluentbit_inputs:
+  - {"Name": "systemd", "Tag": "systemd"}
+  - {"Name": "cpu", "Tag": "cpu.local", "Interval_Sec": "1"}
+# - {"name": "tail", "tag": "", "path": ""}
+
+fluentbit_outputs:
+  - {"Name": "es", "Match": "*", "Host": "easlticsearchcluster-masternode-endpoints","Port":"9200", "Index": "fluent_bit", "Type": "cpu_metrics"}
+
+fluentbit_log_aggregator: ""
+#fluentbit_log_agregator: "127.0.0.1:10514"
+
+

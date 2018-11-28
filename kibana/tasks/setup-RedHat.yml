@@ -1,0 +1,11 @@
+--- 
+- name: Kibana RPM package download
+  get_url: 
+    dest: /tmp/
+    url: "https://artifacts.elastic.co/downloads/kibana/kibana-6.3.2-x86_64.rpm"
+
+- name: install kibana
+  yum:
+    name: /tmp/kibana-6.3.2-x86_64.rpm
+    state: present
+

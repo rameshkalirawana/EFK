@@ -1,0 +1,25 @@
+- hosts: elasticsearch-master-nodes
+  become: yes
+  vars_files:
+    - input.yml
+  roles:
+    - role: elasticsearch
+- hosts: elasticsearch-data-nodes
+  become: yes
+  vars_files:
+    - input.yml
+  roles:
+    - { role: elasticsearch,es_instance_name: "data", es_node_data: "true", es_node_master: "false" }
+- hosts: kibana
+  become: yes
+  vars_files:
+    - input.yml
+  roles:
+    - role: kibana
+
+- hosts: fluentbit
+  become: yes
+  vars_files:
+    - input.yml
+  roles:
+    - role: fluentbit

@@ -1,0 +1,42 @@
+---
+
+- name: Create rsyslog config
+  template:
+    src: rsyslog.j2
+    dest: /etc/rsyslog.d/90-logforwarder.conf
+  notify: restart rsyslog
+
+- name: Configure journald to forward logs to rsyslog
+  lineinfile:
+    dest: /etc/systemd/journald.conf
+    line: "ForwardToSyslog=yes"
+  notify: restart journald
+
+- name: Copy new td-agent-bit.conf from role's default
+  template:
+    src: td-agent-bit.conf.j2
+    dest: "/etc/td-agent-bit/td-agent-bit.conf"
+  notify:
+   - restart td-agent-bit
+- name: Ensure fluentbit (td-agent-bit) service is enabled and started
+  service:
+    name: td-agent-bit
+    state: started
+    enabled: yes
+
+# - name: Copy additional config files
+#   template:
+#     src: additional.conf.j2
+#     dest: "/etc/td-agent-bit/{{ item.name }}.conf"
+#   with_items: "{{ fluentbit_inputs }}"
+#   changed_when: false
+#   notify:
+#    - restart td-agent-bit
+
+# - name: Include additional config files
+#   lineinfile:
+#     path: "/etc/td-agent-bit/td-agent-bit.conf"
+#     line: "@INCLUDE {{item.name}}.conf"
+#     state: present
+#   changed_when: false
+#   with_items: "{{ fluentbit_inputs }}"
